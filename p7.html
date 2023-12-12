@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>String and Number Manipulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      margin: 0;
+    }
+    h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    div {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      margin: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    p {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>String and Number Manipulation</h1>
+
+  <div>
+    <h2>Find Left-Most Vowel</h2>
+    <label for="inputString">Enter a string:</label>
+    <input type="text" id="inputString">
+    <button onclick="findAndDisplayVowelPosition()">Find Position</button>
+    <p id="vowelPositionResult"></p>
+  </div>
+  <div>
+    <h2>Reverse Number Digits</h2>
+    <label for="inputNumber">Enter a number:</label>
+    <input type="number" id="inputNumber">
+    <button onclick="reverseAndDisplayNumber()">Reverse Number</button>
+    <p id="reversedNumberResult"></p>
+  </div>
+  <script>
+    function findAndDisplayVowelPosition() {
+      const inputString = document.getElementById("inputString").value;
+      const vowels = "aeiouAEIOU";
+      let positionResult = document.getElementById("vowelPositionResult");
+      for (let i = 0; i < inputString.length; i++) {
+        if (vowels.includes(inputString[i])) {
+          positionResult.textContent = `Position of left-most vowel: ${i + 1}`;
+          return;
+        }
+      }
+      positionResult.textContent = "No vowel found in the string.";
+    }
+    function reverseAndDisplayNumber() {
+      const inputNumber = parseInt(document.getElementById("inputNumber").value);
+      let reversedResult = document.getElementById("reversedNumberResult");
+      if (isNaN(inputNumber)) {
+        reversedResult.textContent = "Invalid input";
+      } else {
+        const reversedNumber = parseInt(inputNumber.toString().split('').reverse().join(''));
+        reversedResult.textContent = `Reversed number: ${reversedNumber}`;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Registration Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background:linear-gradient(lightblue,violet);
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        form {
+            margin-top: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .message {
+            margin-top: 20px;
+            color: #ff0000;
+        }
+        .success-message {
+            color: #008000;
+        }
+        .switch-container {
+            margin-top: 20px;
+        }
+        .switch-text {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .switch-link {
+            color: #0074D9;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="loginContainer">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="loginUsername">Username:</label>
+            <input type="text" id="loginUsername" required>
+
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" required>
+
+            <button type="button" onclick="login()">Login</button>
+        </form>
+        <p><a href="#" onclick="showForgotPasswordPage()">Forgot password?</a></p>
+        <div class="message" id="loginMessage"></div>
+        <div class="switch-container">
+            <span class="switch-text">Don't have an account?</span>
+            <a href="#" class="switch-link" onclick="showSignupPage()">Sign Up</a>
+        </div>
+    </div>
+
+    <!-- Signup Page -->
+    <div class="container" style="display: none;" id="signupContainer">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <label for="signupUsername">Username:</label>
+            <input type="text" id="signupUsername" required>
+
+            <label for="signupPassword">Password:</label>
+            <input type="password" id="signupPassword" required>
+
+            <button type="button" onclick="signup()">Sign Up</button>
+        </form>
+        <div class="message" id="signupMessage"></div>
+        <div class="switch-container">
+            <span class="switch-text">Already have an account?</span>
+            <a href="#" class="switch-link" onclick="showLoginPage()">Login</a>
+        </div>
+    </div>
+    <div class="container" style="display: none;" id="loginSuccessContainer">
+        <h2>Login Successful</h2>
+        <p>Welcome to our website!</p>
+        <button type="button" onclick="logout()">Logout</button>
+    </div>
+    <div class="container" style="display: none;" id="invalidPasswordContainer">
+        <h2>Invalid Password</h2>
+        <p>The password you entered is incorrect. Please try again.</p>
+        <button type="button" onclick="showLoginPage()">Back to Login</button>
+    </div>
+    <div class="container" style="display: none;" id="forgotPasswordContainer">
+        <h2>Forgot Password</h2>
+        <form id="forgotPasswordForm">
+            <label for="forgotPasswordEmail">Email:</label>
+            <input type="text" id="forgotPasswordEmail" required>
+
+            <button type="button" onclick="resetPassword()">Reset Password</button>
+        </form>
+        <div class="message" id="forgotPasswordMessage"></div>
+        <p><a href="#" onclick="showLoginPage()">Back to Login</a></p>
+    </div>
+    <script>
+        let loggedIn = false;
+        function login() {
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+            const loginMessage = document.getElementById("loginMessage");
+        if (username === "user" && password === "password") {
+                loggedIn = true;
+                showLoginSuccessPage();
+            } else {
+                showInvalidPasswordPage();
+            }
+        }
+        function showLoginPage() {
+            clearMessages();
+            document.getElementById("loginContainer").style.display = "block";
+            document.getElementById("signupContainer").style.display = "none";
+            document.getElementById("loginSuccessContainer").style.display = "none";
+            document.getElementById("invalidPasswordContainer").style.display = "none";
+            document.getElementById("forgotPasswordContainer").style.display = "none";
+        }
+        function showSignupPage() {
+            clearMessages();
+            document.getElementById("loginContainer").style.display = "none";
+            document.getElementById("signupContainer").style.display = "block";
+            document.getElementById("loginSuccessContainer").style.display = "none";
+            document.getElementById("invalidPasswordContainer").style.display = "none";
+            document.getElementById("forgotPasswordContainer").style.display = "none";
+        }
+        function showLoginSuccessPage() {
+            clearMessages();
+            document.getElementById("loginContainer").style.display = "none";
+            document.getElementById("signupContainer").style.display = "none";
+            document.getElementById("loginSuccessContainer").style.display = "block";
+            document.getElementById("invalidPasswordContainer").style.display = "none";
+            document.getElementById("forgotPasswordContainer").style.display = "none";
+        }
+        function showInvalidPasswordPage() {
+            clearMessages();
+            document.getElementById("loginContainer").style.display = "none";
+            document.getElementById("signupContainer").style.display = "none";
+            document.getElementById("loginSuccessContainer").style.display = "none";
+            document.getElementById("invalidPasswordContainer").style.display = "block";
+            document.getElementById("forgotPasswordContainer").style.display = "none";
+        }
+        function showForgotPasswordPage() {
+            clearMessages();
+            document.getElementById("loginContainer").style.display = "none";
+            document.getElementById("signupContainer").style.display = "none";
+            document.getElementById("loginSuccessContainer").style.display = "none";
+            document.getElementById("invalidPasswordContainer").style.display = "none";
+            document.getElementById("forgotPasswordContainer").style.display = "block";
+        }
+        function signup() {
+            const signupUsername = document.getElementById("signupUsername").value;
+            const signupPassword = document.getElementById("signupPassword").value;
+            const signupMessage = document.getElementById("signupMessage");
+         if (signupUsername && signupPassword) {
+                signupMessage.textContent = "Registration successful!";
+                showLoginPage();
+            } else {
+                signupMessage.textContent = "Please fill in all fields.";
+            }
+        }
+        function resetPassword() {
+            const forgotPasswordEmail = document.getElementById("forgotPasswordEmail").value;
+            const forgotPasswordMessage = document.getElementById("forgotPasswordMessage");
+           if (forgotPasswordEmail) {
+                forgotPasswordMessage.textContent = "Password reset instructions sent to your email.";
+            } else {
+                forgotPasswordMessage.textContent = "Please enter your email address.";
+            }
+        }
+        function logout() {
+            loggedIn = false;
+            showLoginPage();
+        }
+        function clearMessages() {
+            document.getElementById("loginMessage").textContent = "";
+            document.getElementById("signupMessage").textContent = "";
+            document.getElementById("forgotPasswordMessage").textContent = "";
+        }
+        showLoginPage();
+    </script>
+</body>
+</html>
