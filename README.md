@@ -1,2 +1,3 @@
-# Professional_skills_1
+# Professional Skills 1
 PS practicals using HTML,CSS and JAVASCRIPT
+- SEM V
